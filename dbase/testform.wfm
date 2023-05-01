@@ -1,0 +1,159 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 05/19/2021
+//
+parameter bModal
+local f
+f = new testformForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class testformForm of FORM
+   with (this)
+      height = 13.0
+      left = 74.0
+      top = 0.0
+      width = 34.0
+      text = "Produs"
+      escExit = false
+      scrollBar = 2	// Auto
+   endwith
+
+   this.PRODUS1 = new QUERY(this)
+   with (this.PRODUS1)
+      left = 20.0
+      sql = 'select * from "D:\dbase\produs.dbf"'
+      active = true
+   endwith
+
+   this.TEXTCODP1 = new TEXT(this)
+   with (this.TEXTCODP1)
+      height = 1.0
+      left = 1.0
+      top = 3.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "CodP"
+   endwith
+
+   this.ENTRYFIELDCODP1 = new ENTRYFIELD(this)
+   with (this.ENTRYFIELDCODP1)
+      dataLink = form.produs1.rowset.fields["codp"]
+      height = 1.0
+      left = 16.0
+      top = 3.0
+      width = 12.0
+   endwith
+
+   this.TEXTDENUMIRE1 = new TEXT(this)
+   with (this.TEXTDENUMIRE1)
+      height = 1.0
+      left = 1.0
+      top = 4.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "Denumire"
+   endwith
+
+   this.ENTRYFIELDDENUMIRE1 = new ENTRYFIELD(this)
+   with (this.ENTRYFIELDDENUMIRE1)
+      dataLink = form.produs1.rowset.fields["denumire"]
+      height = 1.0
+      left = 16.0
+      top = 4.0
+      width = 12.0
+   endwith
+
+   this.TEXTDATAEXPIRARE1 = new TEXT(this)
+   with (this.TEXTDATAEXPIRARE1)
+      height = 1.0
+      left = 1.0
+      top = 5.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "dataExpirare"
+   endwith
+
+   this.SPINBOXDATAEXPIRARE1 = new SPINBOX(this)
+   with (this.SPINBOXDATAEXPIRARE1)
+      dataLink = form.produs1.rowset.fields["dataexpirare"]
+      height = 1.0
+      left = 16.0
+      top = 5.0
+      width = 14.0
+      rangeMax = {10/15/2021}
+      rangeMin = {07/07/2021}
+   endwith
+
+   this.TEXTPRET1 = new TEXT(this)
+   with (this.TEXTPRET1)
+      height = 1.0
+      left = 1.0
+      top = 6.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "Pret"
+   endwith
+
+   this.SPINBOXPRET1 = new SPINBOX(this)
+   with (this.SPINBOXPRET1)
+      dataLink = form.produs1.rowset.fields["pret"]
+      height = 1.0
+      left = 16.0
+      top = 6.0
+      width = 14.0
+      rangeMax = 100
+      rangeMin = 1
+   endwith
+
+   this.TEXTPOZA1 = new TEXT(this)
+   with (this.TEXTPOZA1)
+      height = 1.0
+      left = 1.0
+      top = 7.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "Poza"
+   endwith
+
+   this.IMAGEPOZA1 = new IMAGE(this)
+   with (this.IMAGEPOZA1)
+      height = 4.0
+      left = 16.0
+      top = 7.0
+      width = 12.0
+      dataSource = form.produs1.rowset.fields["poza"]
+      enabled = true
+   endwith
+
+   this.TITLE1 = new TEXT(this)
+   with (this.TITLE1)
+      height = 2.0
+      left = 1.0
+      top = 0.0
+      width = 13.8571
+      variableHeight = true
+      colorNormal = "Highlight/BtnFace"
+      fontSize = 18.0
+      fontBold = true
+      text = "Produs"
+   endwith
+
+   this.rowset = this.produs1.rowset
+
+endclass
+

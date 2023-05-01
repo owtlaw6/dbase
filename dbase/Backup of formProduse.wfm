@@ -1,0 +1,176 @@
+** END HEADER -- do not remove this line
+//
+// Generated on 05/21/2021
+//
+parameter bModal
+local f
+f = new formProduseForm()
+if (bModal)
+   f.mdi = false // ensure not MDI
+   f.readModal()
+else
+   f.open()
+endif
+
+class formProduseForm of FORM
+	set exclusive on
+	use produs.dbf
+	set delete off
+   with (this)
+      height = 18.5455
+      left = 9.0
+      top = 0.4545
+      width = 73.2857
+      text = "Produs"
+      escExit = false
+      scrollBar = 2	// Auto
+   endwith
+
+   this.PRODUS1 = new QUERY(this)
+   with (this.PRODUS1)
+      left = 20.0
+      sql = 'select * from "D:\dbase\produs.dbf"'
+      active = true
+   endwith
+
+   this.TEXTCODP1 = new TEXT(this)
+   with (this.TEXTCODP1)
+      height = 1.0
+      left = 0.0
+      top = 3.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "CodP"
+   endwith
+
+   this.ENTRYFIELDCODP1 = new ENTRYFIELD(this)
+   with (this.ENTRYFIELDCODP1)
+      height = 1.0
+      left = 19.0
+      top = 3.0
+      width = 12.0
+      value = "          "
+      maxLength = 10
+   endwith
+
+   this.TEXTDENUMIRE1 = new TEXT(this)
+   with (this.TEXTDENUMIRE1)
+      height = 1.0
+      left = 36.0
+      top = 7.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "Denumire"
+   endwith
+
+   this.ENTRYFIELDDENUMIRE1 = new ENTRYFIELD(this)
+   with (this.ENTRYFIELDDENUMIRE1)
+      height = 1.0
+      left = 52.0
+      top = 7.0
+      width = 12.0
+      value = "          "
+      maxLength = 10
+   endwith
+
+   this.TEXTDATAEXPIRARE1 = new TEXT(this)
+   with (this.TEXTDATAEXPIRARE1)
+      height = 1.0
+      left = 35.0
+      top = 9.5
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "dataExpirare"
+   endwith
+
+   this.SPINBOXDATAEXPIRARE1 = new SPINBOX(this)
+   with (this.SPINBOXDATAEXPIRARE1)
+      height = 1.0
+      left = 51.0
+      top = 9.5
+      width = 14.0
+      rangeMax = {10/15/2021}
+      rangeMin = {07/07/2021}
+      value = {  /  /    }
+   endwith
+
+   this.TEXTPRET1 = new TEXT(this)
+   with (this.TEXTPRET1)
+      height = 1.0
+      left = 35.0
+      top = 12.0
+      width = 14.0
+      wrap = false
+      alignVertical = 1	// Middle
+      alignHorizontal = 2	// Right
+      text = "Pret"
+   endwith
+
+   this.SPINBOXPRET1 = new SPINBOX(this)
+   with (this.SPINBOXPRET1)
+      height = 1.0
+      left = 51.0
+      top = 12.0
+      width = 14.0
+      rangeMax = 100
+      rangeMin = 1
+      value = 0.0
+   endwith
+
+   this.IMAGEPOZA1 = new IMAGE(this)
+   with (this.IMAGEPOZA1)
+      height = 9.0
+      left = 4.0
+      top = 5.5
+      width = 33.0
+      enabled = true
+   endwith
+
+   this.CAUTA = new PUSHBUTTON(this)
+   with (this.CAUTA)
+      onClick = {; reindex; set index to ICodP; go top; Vcods = form.ENTRYFIELDCODP1.value; seek vcods; if eof(); msgbox(' Produsul '+ vcods + ' nu exista!', 'CodP gresit', 0); disp; else; form.ENTRYFIELDDENUMIRE1.datalink=' produs->Denumire'; form.SPINBOXDATAEXPIRARE1.datalink=' produs->dataExpirare'; form.SPINBOXPRET1.datalink=' produs->Pret'; form.IMAGEPOZA1.datasource='binary produs->Poza';endif}
+      height = 1.0909
+      left = 45.0
+      top = 3.0
+      width = 15.2857
+      text = "cauta"
+   endwith
+
+   this.ADAUGA = new PUSHBUTTON(this)
+   with (this.ADAUGA)
+      onClick = {; reindex; set index to ICodP; go top; Vcods = form.ENTRYFIELDCODP1.value; denum = form.ENTRYFIELDDENUMIRE1.value; dataexpir = form.SPINBOXDATAEXPIRARE1.value; pretul = form.SPINBOXPRET1.value; seek vcods; if eof(); if dataexpir-date() < 0; msgbox(' Produsul '+ vcods + ' este expirat!', 'Adaugare esuata', 0); disp; else; go top; append blank; edit; REPL denumire WITH denum, dataExpirare WITH dataexpir, pret WITH pretul, CodP WITH vcods; endif; else; msgbox(' Produsul '+ vcods + ' exista deja!', 'CodP gresit', 0); disp; endif}
+      height = 1.0909
+      left = 7.0
+      top = 16.5
+      width = 15.2857
+      text = "adauga"
+   endwith
+
+   this.LISTAREEXP = new PUSHBUTTON(this)
+   with (this.LISTAREEXP)
+      onClick = {;list}
+      height = 1.0909
+      left = 29.0
+      top = 16.5
+      width = 15.2857
+      text = "listare Exp"
+   endwith
+
+   this.STERGE = new PUSHBUTTON(this)
+   with (this.STERGE)
+      height = 1.0909
+      left = 51.0
+      top = 16.5
+      width = 15.2857
+      text = "sterge"
+   endwith
+
+
+endclass
+
